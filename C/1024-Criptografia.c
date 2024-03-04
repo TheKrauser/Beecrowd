@@ -3,38 +3,42 @@
 
 int main()
 {
-    int casos;
     char palavra[1001];
     char palavraInv[1001];
+    int casos;
+    int tam;
 
     scanf("%d", &casos);
 
-    for(int i=0; i<casos; i++)
+    for (int i = 0; i < casos; i++)
     {
-        fgets(palavra, 1001, stdin);
-        int tam = strlen(palavra);
+        //Receber a string inteira mesmo após o espaço e não imprimir um \n na hora do ENTER (foi o melhor jeito que encontrei de resolver os dois casos, fgets não foi tão bem)
+        scanf(" %[^\n]", palavra);
+        tam = strlen(palavra);
 
-        for(int j=0; j<tam; j++)
+        for (int j = 0; j < tam; j++)
         {
-            if ((palavra[j] >= 65 && palavra[j] <= 90) || (palavra[j] >= 97 && palavra[j] <= 122))
+            if ((palavra[j] >= 'A' && palavra[j] <= 'Z') || (palavra[j] >= 'a' && palavra[j] <= 'z'))
             {
-                palavra[j]+=3;
+                palavra[j] += 3;
             }
         }
 
         strcpy(palavraInv, palavra);
-
-        for(int j=0; j<tam; j++)
+        for (int j = 0; j < tam; j++)
         {
-            palavraInv[j] = palavra[tam-(j+1)];
+            palavraInv[j] = palavra[(tam - j) - 1];
         }
 
-        for(int j=tam/2; j<tam; j++)
+        for (int j = (tam / 2); j < tam; j++)
         {
-            palavraInv[j]-=1;
+            palavraInv[j] -= 1;
         }
 
-        puts(palavraInv);
+        fputs(palavraInv, stdout);
+
+        if (i < casos)
+            printf("\n");
     }
 
     return 0;
